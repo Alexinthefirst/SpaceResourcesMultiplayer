@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd54gos3i2kao"]
+
+[ext_resource type="Script" path="res://Battle.gd" id="1_3r83v"]
+
+[node name="Battle" type="Node"]
+script = ExtResource("1_3r83v")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

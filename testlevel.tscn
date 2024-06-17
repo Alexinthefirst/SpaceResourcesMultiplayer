@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://do67k1mn300ve"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_vpqji"]
+[ext_resource type="Script" path="res://ShipSpawner.gd" id="3_w0tms"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nfb45"]
+properties/0/path = NodePath(".:astar_points")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = true
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_vpqji")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Ships" type="Node" parent="."]
+
+[node name="Planets" type="Node" parent="."]
+
+[node name="Hyperlanes" type="Node" parent="."]
+
+[node name="Battles" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player_controller.tscn")
+spawn_path = NodePath("../Players")
+
+[node name="PlanetSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Planets/Gas Planet/gas_planet.tscn", "res://Planets/LandMasses/LandMasses.tscn", "res://Planets/Rivers/Rivers.tscn", "res://Planets/Star/Star.tscn")
+spawn_path = NodePath("../Planets")
+
+[node name="ShipSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://ship.tscn")
+spawn_path = NodePath("../Ships")
+script = ExtResource("3_w0tms")
+
+[node name="HyperlaneSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Hyperlane.tscn")
+spawn_path = NodePath("../Hyperlanes")
+
+[node name="BattleSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://battle.tscn")
+spawn_path = NodePath("../Battles")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nfb45")
+
+[node name="PlayerList" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ListOfPlayers" type="VBoxContainer" parent="PlayerList"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

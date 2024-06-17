@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://6n15x4hf5dd2"]
+
+[ext_resource type="Script" path="res://multiplayer.gd" id="1_h7001"]
+
+[node name="Multiplayer" type="Node"]
+script = ExtResource("1_h7001")
+
+[node name="Level" type="Node" parent="."]
+
+[node name="UI" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 887.0
+offset_bottom = 118.0
+
+[node name="Net" type="VBoxContainer" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+
+[node name="Options" type="HBoxContainer" parent="UI/Net"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Label" type="Label" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Direct:  
+"
+
+[node name="Host" type="Button" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+button_mask = 7
+text = "Host"
+
+[node name="Connect" type="Button" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Connect"
+
+[node name="Remote" type="LineEdit" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "127.0.0.1"
+max_length = 12
+expand_to_text_length = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://testlevel.tscn")
+spawn_path = NodePath("../Level")
+spawn_limit = 1
+
+[connection signal="pressed" from="UI/Net/Options/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Net/Options/Connect" to="." method="_on_connect_pressed"]

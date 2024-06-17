@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://nor0fbbb32y1"]
+
+[ext_resource type="Script" path="res://Ship.gd" id="1_u6pcv"]
+[ext_resource type="Texture2D" uid="uid://crfyiyklv8mhh" path="res://Assets/BlueRedGreen_Spacecraft_V1.0.png" id="2_nndov"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc7hw"]
+size = Vector2(72, 78)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yjb2x"]
+properties/0/path = NodePath(".:destination")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = true
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = false
+properties/1/watch = true
+properties/2/path = NodePath(".:path")
+properties/2/spawn = true
+properties/2/sync = false
+properties/2/watch = true
+properties/3/path = NodePath(".:idPath")
+properties/3/spawn = true
+properties/3/sync = false
+properties/3/watch = true
+properties/4/path = NodePath(".:currentPlanetID")
+properties/4/spawn = true
+properties/4/sync = false
+properties/4/watch = true
+properties/5/path = NodePath(".:inBattle")
+properties/5/spawn = true
+properties/5/sync = false
+properties/5/watch = true
+properties/6/path = NodePath(".:currentBattleId")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+
+[node name="Ship" type="Node2D"]
+z_index = 1
+script = ExtResource("1_u6pcv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+rotation = 1.5708
+scale = Vector2(3, 3)
+texture = ExtResource("2_nndov")
+hframes = 3
+vframes = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_mc7hw")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yjb2x")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
